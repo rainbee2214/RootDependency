@@ -147,116 +147,142 @@ public class SacredGenerator : MonoBehaviour
 		position.x = 0f;
 		position.z = 0f;
 		circles[0].transform.position = position;
-		
+		circles[0].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		//First Row
 		position.x = 1f;
 		position.z = 0f;
 		circles[1].transform.position = position;
-		
+		circles[1].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		position.x = 1f;
 		position.z = 0;
 		circles[2].transform.position = position;
-		
+		circles[2].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		position.x = -1f;
 		position.z = 0;
 		circles[3].transform.position = position;
-		
+		circles[3].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		position.x = Mathf.Cos(Mathf.PI/3);
 		position.z = Mathf.Sin(Mathf.PI/3);
 		circles[4].transform.position = position;
-		
+		circles[4].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		position.x = Mathf.Cos(4*Mathf.PI/3);
 		position.z = Mathf.Sin(4*Mathf.PI/3);
 		circles[5].transform.position = position;
-		
+		circles[5].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		position.x = Mathf.Cos(5*Mathf.PI/3);
 		position.z = Mathf.Sin(5*Mathf.PI/3);
 		circles[6].transform.position = position;
-		
+		circles[6].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		position.x = Mathf.Cos(2*Mathf.PI/3);
 		position.z = Mathf.Sin(2*Mathf.PI/3);
 		circles[7].transform.position = position;
-		
+		circles[7].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		//Second Row
 		position.x = 1f;
 		position.z = (Mathf.Tan(Mathf.PI/3f));
 		circles[8].transform.position = position;
-		
+		circles[8].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		position.x = 1f;
 		position.z = (Mathf.Tan(5*Mathf.PI/3f));
 		circles[9].transform.position = position;
-		
+		circles[9].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		position.x = -1f;
 		position.z = (Mathf.Tan(4*Mathf.PI/3f));
 		circles[10].transform.position = position;
-		
+		circles[10].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		position.x = -1f;
 		position.z = (Mathf.Tan(2*Mathf.PI/3f));
 		circles[11].transform.position = position;
-		
+		circles[11].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		position.x = 2f;
 		position.z = 0f;
 		circles[12].transform.position = position;
-		
+		circles[12].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		position.x = -2f;
 		position.z = 0f;
 		circles[13].transform.position = position;
+		circles[13].transform.Rotate(new Vector3(0f, 60f, 0f));
 
 		position.x = Mathf.Cos(5*Mathf.PI/3) + 1f;
 		position.z = Mathf.Sin(5*Mathf.PI/3);
 		circles[14].transform.position = position;
+		circles[14].transform.Rotate(new Vector3(0f, 60f, 0f));
 
 		position.x = Mathf.Cos(4*Mathf.PI/3) - 1f;
 		position.z = Mathf.Sin(4*Mathf.PI/3);
 		circles[15].transform.position = position;
+		circles[15].transform.Rotate(new Vector3(0f, 60f, 0f));
 
 		position.x = Mathf.Cos(5*Mathf.PI/3) + 1f;
 		position.z = -Mathf.Sin(5*Mathf.PI/3);
 		circles[16].transform.position = position;
-		
+		circles[16].transform.Rotate(new Vector3(0f, 60f, 0f));
+
 		position.x = Mathf.Cos(4*Mathf.PI/3) - 1f;
 		position.z = -Mathf.Sin(4*Mathf.PI/3);
 		circles[17].transform.position = position;
+		circles[17].transform.Rotate(new Vector3(0f, 60f, 0f));
 
 		position.x = Mathf.Cos(5*Mathf.PI/3) -0.5f;
 		position.z = Mathf.Sin(5*Mathf.PI/3) * 2;
 		circles[18].transform.position = position;
+		circles[18].transform.Rotate(new Vector3(0f, 60f, 0f));
 		
 		position.x = Mathf.Cos(5*Mathf.PI/3) -0.5f;
 		position.z = -Mathf.Sin(5*Mathf.PI/3) * 2;
 		circles[19].transform.position = position;
+		circles[19].transform.Rotate(new Vector3(0f, 60f, 0f));
 //
 //		//Third Row
-		position.x = Mathf.Cos(Mathf.PI/3);
-		position.z =  Mathf.Sin(5*Mathf.PI/3) * 3;
-		DeactivateHalfCircle(circles[20], "top");
-		circles[20].transform.position = position;
-		circles[20].name = "Circle[20]";
+//		position.x = Mathf.Cos(Mathf.PI/3);
+//		position.z =  Mathf.Sin(5*Mathf.PI/3) * 3;
+//		DeactivateHalfCircle(circles[20], "bottom");
+//		circles[20].transform.Rotate(new Vector3(0f, 60f, 0f));
+//		circles[20].transform.position = position;
+//		circles[20].name = "Circle[20]";
+//
+//		position.x = Mathf.Cos(Mathf.PI/3);
+//		position.z = -Mathf.Sin(5*Mathf.PI/3) * 3;
+//		DeactivateHalfCircle(circles[21], "bottom");
+//		circles[21].transform.Rotate(new Vector3(0f, 60f, 0f));
+//		circles[21].transform.position = position;
+//		circles[21].name = "Circle[21]";
+//
+//		position.x = -Mathf.Cos(Mathf.PI/3);
+//		position.z = Mathf.Sin(5*Mathf.PI/3) * 3;
+//		DeactivateHalfCircle(circles[22], "bottom");
+//		circles[22].transform.Rotate(new Vector3(0f, 60f, 0f));
+//		circles[22].transform.position = position;
+//		circles[22].name = "Circle[22]";
+//		
+//		position.x = -Mathf.Cos(Mathf.PI/3);
+//		position.z = -Mathf.Sin(5*Mathf.PI/3) * 3;
+//		DeactivateHalfCircle(circles[23], "bottom");
+//		circles[23].transform.Rotate(new Vector3(0f, 60f, 0f));
+//		circles[23].transform.position = position;
+//		circles[23].name = "Circle[23]";
 
-		position.x = Mathf.Cos(Mathf.PI/3);
-		position.z = -Mathf.Sin(5*Mathf.PI/3) * 3;
-		DeactivateHalfCircle(circles[21], "bottom");
-		circles[21].transform.position = position;
-		circles[21].name = "Circle[21]";
-
-		position.x = -Mathf.Cos(Mathf.PI/3);
-		position.z = Mathf.Sin(5*Mathf.PI/3) * 3;
-		DeactivateHalfCircle(circles[22], "top");
-		circles[22].transform.position = position;
-		circles[22].name = "Circle[22]";
-		
-		position.x = -Mathf.Cos(Mathf.PI/3);
-		position.z = -Mathf.Sin(5*Mathf.PI/3) * 3;
-		DeactivateHalfCircle(circles[23], "bottom");
-		circles[23].transform.position = position;
-		circles[23].name = "Circle[23]";
-
-		position.x = -Mathf.Cos(Mathf.PI/3);
-		position.z = -Mathf.Sin(5*Mathf.PI/3) * 3;
+		position.x = 0;
+		position.z = 0;
+		position.y = -23f;
 		DeactivateHalfCircle(circles[24], "bottom");
 		circles[24].transform.Rotate(new Vector3(0f, 60f, 0f));
 		circles[24].transform.position = position;
 		circles[24].name = "Circle[24]";
+		position.y = -10f;
 
 //		position.x = -1f;
 //		position.z = (Mathf.Tan(4*Mathf.PI/3f));
