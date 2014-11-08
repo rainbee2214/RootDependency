@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Functions.cs" />
      <Compile Include="Assets\GridOverlay.cs" />
+     <Compile Include="Assets\SacredGenerator.cs" />
      <Compile Include="Assets\TestingStuff\Grapher1.cs" />
      <Compile Include="Assets\TestingStuff\Grapher2.cs" />
      <Compile Include="Assets\TestingStuff\Grapher3.cs" />

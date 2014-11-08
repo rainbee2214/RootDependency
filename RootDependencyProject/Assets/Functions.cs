@@ -17,7 +17,9 @@ public class Functions : MonoBehaviour
 		Cotangent, 
 		ArcSine,
 		ArcCosine, 
-		ArcTangent
+		ArcTangent,
+		SemiCircle,
+		SemiCircleBottom
 	}
 
 	public FunctionOption function;
@@ -38,7 +40,9 @@ public class Functions : MonoBehaviour
 		Cotangent,
 		ArcSine,
 		ArcCosine, 
-		ArcTangent
+		ArcTangent,
+		SemiCircle,
+		SemiCircleBottom
 	};
 
 	[Range(100, 10000)]
@@ -46,6 +50,9 @@ public class Functions : MonoBehaviour
 	private int currentResolution;
 
 	public ParticleSystem.Particle[] points;
+
+	public Color[] colors;
+	public int currentColor;
 
 	void Start () 
 	{
@@ -61,10 +68,10 @@ public class Functions : MonoBehaviour
 		{
 			float x = i * increment;
 			points[i].position = new Vector3(x, 0f, 0f);
-			points[i].color = new Color(x, 0f, 0f);
+			points[i].color = colors[currentColor];
 			points[i].size = 0.05f;
 			points[i + 1].position = new Vector3(-x, 0f, 0f);
-			points[i + 1].color = new Color(x, 0f, 0f);
+			points[i + 1].color = colors[currentColor];
 			points[i + 1].size = 0.05f;
 		}
 	}
@@ -80,9 +87,7 @@ public class Functions : MonoBehaviour
 			point.y =  f(point.x);
 			points[i].position = point;
 
-			Color color = Color.black;
-			color.g = point.y;
-			points[i].color = color;
+			points[i].color = colors[currentColor];
 		}
 
 		particleSystem.SetParticles(points, points.Length);
@@ -157,5 +162,15 @@ public class Functions : MonoBehaviour
 	private static float ArcTangent(float x)
 	{
 		return Mathf.Atan(Mathf.PI * x);
+	}
+
+	private static float SemiCircle(float x)
+	{
+		return Mathf.Sqrt(1 - x*x);
+	}
+
+	private static float SemiCircleBottom(float x)
+	{
+		return -Mathf.Sqrt(1 - x*x);
 	}
 }
