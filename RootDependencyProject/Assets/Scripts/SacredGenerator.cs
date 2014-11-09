@@ -8,11 +8,15 @@ public class SacredGenerator : MonoBehaviour
 	private GameObject[] circles;
 	private Vector3 position;
 
+	int currentCircle = 0;
+	Vector3 origin = new Vector3 (0f,0f,0f);
+	public int depth = 16;
+
 	void Start () 
 	{
 		position = new Vector3(0f,0f,0f);
 
-		circles = new GameObject[33];
+		circles = new GameObject[depth];
 		for (int i = 0; i < circles.Length; i++)
 		{
 			circles[i] = Instantiate (circle, position, Quaternion.identity) as GameObject;
@@ -21,15 +25,82 @@ public class SacredGenerator : MonoBehaviour
 		//DrawFruitOfLife();
 		//DrawFlowerOfLife(); // This is where I manually determined the positions of each circle using trigonometry
 
-		DrawFOL(); // Here I am generating the rows of the flower of life using trigonometry
+		//DrawFOL(); // Here I am generating the rows of the flower of life using trigonometry
+		currentCircles = new GameObject[depth];
+		circlePositions = new Vector3[depth];
+
+		GenerateFOL();
 	}
 
 	
 	void Update () 
 	{	
 		
-		DrawFOL();
-		SpinCircles();
+		//DrawFOL();
+		//SpinCircles();
+		//GenerateFOL();
+	}
+
+	GameObject[] currentCircles;
+	Vector3[] circlePositions;
+	Vector3[] nextCirclePositions;
+	void GenerateFOL()
+	{
+		ArrayList list = new ArrayList();
+		Vector3 currentCirclePosition = origin;
+		currentCircle = 0;
+		while (currentCircle < depth)
+		{
+			if (currentCircle == 0) DrawCircle(currentCirclePosition.x, currentCirclePosition.z);
+			else
+			{
+				PlaceCircles(currentCirclePosition);
+			}
+		}
+	}
+
+	void PlaceCircles(Vector3 currentCirclePosition)
+	{
+		//foreach (GameObject circle in currentCircles)
+		//{
+			// Calculate positions for 6 new circles - add to circlePositions
+		nextCirclePositions = new Vector3[depth];
+			float theta = 0f;
+			for (int i = 0; i < 6; i++)
+			{
+				
+				circlePositions[i].x += Mathf.Cos(theta);
+				circlePositions[i].z += Mathf.Sin(theta);
+				DrawCircle(Mathf.Cos(theta), Mathf.Sin(theta));
+				
+				theta += Mathf.PI/3f;
+				Debug.Log(theta);
+				for (int k = 0; k < 6; k++)
+				{
+					nextCirclePositions[k].x += Mathf.Cos(theta);
+					nextCirclePositions[k].z += Mathf.Sin(theta);
+				}
+			}
+			// Check all circlePositions against the positions of all currentCircles - remove any duplicates from circlePositions
+
+
+			// Draw circles at all circlePositions
+//			for (int i = 0; i < 6; i++)
+//			{
+//				DrawCircle(circlePositions[i].x, circlePositions[i].z);
+//			}
+
+		//}
+	}
+
+	void DrawCircle(float xPosition, float zPosition)
+	{
+		//Center Circle
+		position.x = xPosition;
+		position.z = zPosition;
+		circles[currentCircle].transform.position = position;
+		circles[currentCircle].name = "Circle" + currentCircle;
+		currentCircle++;
 	}
 
 	void DrawFOL()
@@ -47,29 +118,51 @@ public class SacredGenerator : MonoBehaviour
 
 		//Second Row
 		/////
-		for (int i = currentCircle; i < currentCircle + 6; i++)
-		{
-			position.x = Mathf.Cos(theta);
-			position.z = Mathf.Sin(theta);
-			circles[i].transform.position = position;
-			circles[i].name = "SecondRow :" + i;
-			theta += Mathf.PI/3f;
-		}
+//		for (int i = currentCircle; i < currentCircle + 6; i++)
+//		{
+//			position.x = Mathf.Cos(theta);
+//			position.z = Mathf.Sin(theta);
+//			circles[i].transform.position = position;
+//			circles[i].name = "SecondRow :" + i;
+//			theta += Mathf.PI/3f;
+//		}
 		currentCircle += 6;
 		
 		//Third Row - Group 1
 		///
-		theta = 0f;
-		for (int i = currentCircle; i < currentCircle + 6; i++)
-		{
-			position.x = 2*Mathf.Cos(theta);
-			position.z = 2*Mathf.Sin(theta);
-			circles[i].transform.position = position;
-			circles[i].name = "ThirdRow :" + i;
-			theta += Mathf.PI/3f;
-		}
+//		theta = 0f;
+//		for (int i = currentCircle; i < currentCircle + 6; i++)
+//		{
+//			position.x = 2*Mathf.Cos(theta);
+//			position.z = 2*Mathf.Sin(theta);
+//			circles[i].transform.position = position;
+//			circles[i].name = "ThirdRow :" + i;
+//			theta += Mathf.PI/3f;
+//		}
 		currentCircle += 6;
 
+//		theta = 0f;
+//		for (int i = currentCircle; i < currentCircle + 6; i++)
+//		{
+//			position.x = 3*Mathf.Cos(theta);
+//			position.z = 3*Mathf.Sin(theta);
+//			circles[i].transform.position = position;
+//			circles[i].name = "ThirdRow :" + i;
+//			theta += Mathf.PI/3f;
+//		}
+		currentCircle += 6;
+//		theta = 0f;
+//		for (int i = currentCircle; i < currentCircle + 6; i++)
+//		{
+//			position.x = 4*Mathf.Cos(theta);
+//			position.z = 4*Mathf.Sin(theta);
+//			circles[i].transform.position = position;
+//			circles[i].name = "ThirdRow :" + i;
+//			theta += Mathf.PI/3f;
+//		}
+		currentCircle += 6;
+		
+		
 		//An alternate method of finding the third row - group 1
 		/////
 //		theta = 0f;
@@ -87,38 +180,55 @@ public class SacredGenerator : MonoBehaviour
 //			position.x = r;
 //			theta += Mathf.PI/3f;
 //		}
-//		currentCircle += 6;
-		{
-			//Third Row - Group 2
-			theta = Mathf.PI/3f;
-			position.x = Mathf.Cos(theta) + radius;
-			position.z = Mathf.Sin(theta);
-			circles[13].transform.position = position;
-			
-			theta += Mathf.PI/3f;
-			position.x = Mathf.Cos(theta) - radius;
-			position.z = Mathf.Sin(theta);
-			circles[14].transform.position = position;
-			
-			theta = Mathf.PI/3f;
-			position.x = Mathf.Cos(theta) + radius;
-			position.z = -Mathf.Sin(theta);
-			circles[15].transform.position = position;
-			
-			theta += Mathf.PI/3f;
-			position.x = Mathf.Cos(theta) - radius;
-			position.z = -Mathf.Sin(theta);
-			circles[16].transform.position = position;
-			
-			position.x = 0;
-			position.z = 2 * Mathf.Sin(theta);
-			circles[17].transform.position = position;
-			
-			position.x = 0;
-			position.z = -2 * Mathf.Sin(theta);
-			circles[18].transform.position = position;
-			currentCircle += 6;
-		}
+		currentCircle += 6;
+//		{
+//			//Third Row - Group 2
+//			theta = 0;
+//			position.x = Mathf.Cos(theta);
+//			position.z = Mathf.Sin(theta);
+//			circles[17].transform.position = position;
+//			circles[17].name = "ThirdRow :" + 17;
+//
+//			theta += Mathf.PI/3f;
+//			position.x = Mathf.Cos(theta) - radius;
+//			position.z = Mathf.Sin(theta);
+//			circles[13].transform.position = position;
+//			circles[13].name = "ThirdRow :" + 13;
+//
+//			theta += Mathf.PI/3f;
+//			position.x = Mathf.Cos(theta) - radius;
+//			position.z = Mathf.Sin(theta);
+//			circles[14].transform.position = position;
+//			circles[14].name = "ThirdRow :" + 14;
+//
+//			theta += Mathf.PI/3f;
+//			position.x = Mathf.Cos(theta) - radius;
+//			position.z = Mathf.Sin(theta);
+//			circles[15].transform.position = position;
+//			circles[15].name = "ThirdRow :" + 15;
+//
+//			theta += Mathf.PI/3f;
+//			position.x = Mathf.Cos(theta) - radius;
+//			position.z = Mathf.Sin(theta);
+//			circles[16].transform.position = position;
+//			circles[16].name = "ThirdRow :" + 16;
+//
+//			theta += Mathf.PI/3f;
+//			position.x = Mathf.Cos(theta);
+//			position.z = Mathf.Sin(theta);
+//			circles[18].transform.position = position;
+//			currentCircle += 6;
+//			circles[18].name = "ThirdRow :" + 18;
+
+//			for (int i = currentCircle; i < currentCircle + 6; i++)
+//			{
+//			position.x = Mathf.Sin (theta);//Mathf.Tan(theta);
+//			position.z = Mathf.Tan (theta);//0;
+//				circles[i].transform.position = position;
+//				circles[i].name = "SecondRow :" + i;
+//				theta += Mathf.PI/3f;
+//			}
+//		}
 
 	}
 	
