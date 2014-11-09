@@ -3,14 +3,17 @@ using System.Collections;
 
 public class NewSacredGenerator : MonoBehaviour 
 {
+	public int depth = 32; // Total circles to be drawn
 	public GameObject circle;
-	private GameObject[] circles;
-	private Vector3 position;
-	public bool generate;
+
+	int currentDepth;
+
+	GameObject[] circles;
+	Vector3 position;
+
 	int currentCircle = 0;
 	Vector3 origin = new Vector3 (0f,0f,0f);
-	public int depth = 32; // Total circles to be drawn
-	
+
 	ArrayList currentCircles;
 	ArrayList circlePositions;
 	ArrayList drawnCirclePositions;
@@ -20,57 +23,55 @@ public class NewSacredGenerator : MonoBehaviour
 
 	void Start () 
 	{
+		currentDepth = depth;
 		circlesToSurround = new ArrayList();
 		nextCirclesToSurround = new ArrayList();
 		currentCircles = new ArrayList();
 		circlePositions = new ArrayList();
 		drawnCirclePositions =  new ArrayList();
-		circles = new GameObject[depth];
+
+		circles = new GameObject[currentDepth];
 		for (int i = 0; i < circles.Length; i++)
 		{
 			circles[i] = Instantiate (circle, origin, Quaternion.identity) as GameObject;
 		}
+
+		DrawFlowerOfLife();
 	}
 	
 	
 	void Update () 
 	{	
-		if(generate && currentCircle < circles.Length)
+
+	}
+
+	void DrawFlowerOfLife()
+	{		
+		DrawCircle(origin);
+		while (currentCircle < circles.Length)
 		{
 			GenerateFOL();
-			generate = false;
 		}
 	}
-	
+
+	void RecenterAllCircles()
+	{
+		for (int i = 0; i < circles.Length; i++)
+		{
+			circles[i].transform.position = origin;
+		}
+	}
+
+	//Must have the first circle in place at the origin
 	void GenerateFOL()
 	{
-		if (currentCircle == 0) DrawCircle(origin);
-		else
+		for (int i = 0; i < circlesToSurround.Count; i++)
 		{
-			for (int i = 0; i < circlesToSurround.Count; i++)
-			{
-				int index = (int)circlesToSurround[i];
-				if (index >= circles.Length) break;
-				Vector3 p = circles[index].transform.position;
-				PlaceCircles(p);
-			}
+			int index = (int)circlesToSurround[i];
+			if (index >= circles.Length) break;
+			Vector3 p = circles[index].transform.position;
+			PlaceCircles(p);
 		}
-
-		//Generate all circles at indexes inside circles to surround
-//		if (currentCircle == 0) DrawCircle(origin);
-//		else //if (currentCircle == 1)
-//		{
-//			Debug.Log(currentCircle);
-//			PlaceCircles(circles[currentCircle - 1].transform.position);
-//		}
-//		else if (currentCircle > 1 && currentCircle < 8)
-//		{
-//			PlaceCircles(Mathf.Cos (Mathf.PI/3f), Mathf.Sin(Mathf.PI/3));
-//		}
-//		else
-//		{
-//			Debug.Log(currentCircle);
-//		}
 	}
 
 	// Draws 6 circles surrounding a circle (currentCirles position)
@@ -106,7 +107,6 @@ public class NewSacredGenerator : MonoBehaviour
 			if (EqualCirclePositions(p, position, 0.00001f)) 
 			{
 				//Don't draw the circle
-				Debug.Log("Duplicate circle being drawn: " + currentCircle);
 				draw = false;
 			}
 		}
@@ -117,7 +117,6 @@ public class NewSacredGenerator : MonoBehaviour
 			currentCircle++;
 			drawnCirclePositions.Add(position);
 			circlesToSurround.Add (currentCircle);
-
 		}
 	}
 
