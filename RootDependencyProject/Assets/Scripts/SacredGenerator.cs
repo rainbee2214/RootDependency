@@ -145,7 +145,7 @@ public class SacredGenerator : MonoBehaviour
 		for (int i = 0; i < circles.Length; i++)
 		{
 			DeactivateHalfCircle(circles[i], "top");
-			circles[i].transform.Rotate(new Vector3(0f, rotationsSpeed, 0f));
+			circles[i].transform.Rotate(new Vector3(0f, rotationSpeed, 0f));
 		}
 	}
 
