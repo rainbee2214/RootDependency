@@ -46,18 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Functions.cs" />
-     <Compile Include="Assets\GridOverlay.cs" />
-     <Compile Include="Assets\SacredGenerator.cs" />
-     <Compile Include="Assets\TestingStuff\Grapher1.cs" />
-     <Compile Include="Assets\TestingStuff\Grapher2.cs" />
-     <Compile Include="Assets\TestingStuff\Grapher3.cs" />
-     <Compile Include="Assets\TestingStuff\MyCollider.cs" />
-     <Compile Include="Assets\TestingStuff\Octahedron Sphere\OctahedronSphereCreator.cs" />
-     <Compile Include="Assets\TestingStuff\Octahedron Sphere\OctahedronSphereTester.cs" />
-     <Compile Include="Assets\TestingStuff\Scripts\Move.cs" />
-     <Compile Include="Assets\TestingStuff\SolidCreator.cs" />
-     <Compile Include="Assets\TestingStuff\SolidCreator2.cs" />
+     <Compile Include="Assets\Scripts\Functions.cs" />
+     <Compile Include="Assets\Scripts\SacredGenerator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
