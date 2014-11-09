@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SacredGenerator : MonoBehaviour 
 {
+	public float timeStep;
 	public GameObject circle;
 	private GameObject[] circles;
 	private Vector3 position;
@@ -11,7 +12,7 @@ public class SacredGenerator : MonoBehaviour
 	{
 		position = new Vector3(0f,0f,0f);
 
-		circles = new GameObject[40];
+		circles = new GameObject[33];
 		for (int i = 0; i < circles.Length; i++)
 		{
 			circles[i] = Instantiate (circle, position, Quaternion.identity) as GameObject;
@@ -19,7 +20,9 @@ public class SacredGenerator : MonoBehaviour
 
 		//DrawFruitOfLife();
 		//DrawFlowerOfLife();
-		DrawFlowerOfLifeBigger();
+		//DrawFlowerOfLifeBigger();
+
+		DrawFOL();
 	}
 
 	public void DrawFruitOfLife()
@@ -334,8 +337,156 @@ public class SacredGenerator : MonoBehaviour
 		}
 	}
 
-	void Update () 
+	void DrawFOL()
 	{
-		DrawFlowerOfLifeBigger();
+		int currentCircle = 0;
+		float theta = 0f;
+		float radius = 1f;
+		float k = 0f;
+		//Center circle
+		/////
+		position.x = 0f;
+		position.z = 0f;
+		circles[0].transform.position = position;
+		currentCircle++;
+
+		//Second Row
+		/////
+		for (int i = currentCircle; i < currentCircle + 6; i++)
+		{
+			position.x = Mathf.Cos(theta);
+			position.z = Mathf.Sin(theta);
+			circles[i].transform.position = position;
+			theta += Mathf.PI/3f;
+		}
+		currentCircle += 6;
+
+		//Third Row - Group 1
+		/////
+		theta = 0f;
+		float r = 2f*radius;
+		position.x = r;
+		k = -1f;
+		for (int i = currentCircle; i < currentCircle + 6; i++)
+		{
+			position.z = Mathf.Tan(theta);
+			circles[i].transform.position = position;
+			circles[i].name = "ThirdRow :" + i;
+			r += k;
+			if (r == -2) k = 1f;
+			if (r == 0) r += k;
+			position.x = r;
+			theta += Mathf.PI/3f;
+		}
+		currentCircle += 6;
+
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//
+//		//Third Row - Group 2
+//		/////
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//
+//		//Fourth Row - Group 1
+//		/////
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		//Fourth Row - Group 2
+//		/////
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+//		
+//		position.x = 0f;
+//		position.z = 0f;
+//		circles[0].transform.position = position;
+	}
+
+	void Update () 
+	{	
+
+		//DrawFOL();
+
 	}
 }
