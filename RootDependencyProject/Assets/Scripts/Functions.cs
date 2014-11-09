@@ -49,7 +49,7 @@ public class Functions : MonoBehaviour
 		SemiCircleBottom
 	};
 
-	[Range(100, 10000)]
+	[Range(100, 2000)]
 	public int resolution = 100;
 	private int currentResolution;
 
