@@ -14,12 +14,18 @@ public class NewSacredGenerator : MonoBehaviour
 	ArrayList currentCircles;
 	ArrayList circlePositions;
 	ArrayList drawnCirclePositions;
+
+	ArrayList circlesToSurround;
+	ArrayList nextCirclesToSurround;
+
 	void Start () 
 	{
+		circlesToSurround = new ArrayList();
+		nextCirclesToSurround = new ArrayList();
 		currentCircles = new ArrayList();
 		circlePositions = new ArrayList();
 		drawnCirclePositions =  new ArrayList();
-		circles = new GameObject[30];
+		circles = new GameObject[depth];
 		for (int i = 0; i < circles.Length; i++)
 		{
 			circles[i] = Instantiate (circle, origin, Quaternion.identity) as GameObject;
@@ -29,7 +35,7 @@ public class NewSacredGenerator : MonoBehaviour
 	
 	void Update () 
 	{	
-		if(generate)
+		if(generate && currentCircle < circles.Length)
 		{
 			GenerateFOL();
 			generate = false;
@@ -39,10 +45,24 @@ public class NewSacredGenerator : MonoBehaviour
 	void GenerateFOL()
 	{
 		if (currentCircle == 0) DrawCircle(origin);
-		else //if (currentCircle == 1)
+		else
 		{
-			PlaceCircles(circles[currentCircle - 1].transform.position);
+			for (int i = 0; i < circlesToSurround.Count; i++)
+			{
+				int index = (int)circlesToSurround[i];
+				if (index >= circles.Length) break;
+				Vector3 p = circles[index].transform.position;
+				PlaceCircles(p);
+			}
 		}
+
+		//Generate all circles at indexes inside circles to surround
+//		if (currentCircle == 0) DrawCircle(origin);
+//		else //if (currentCircle == 1)
+//		{
+//			Debug.Log(currentCircle);
+//			PlaceCircles(circles[currentCircle - 1].transform.position);
+//		}
 //		else if (currentCircle > 1 && currentCircle < 8)
 //		{
 //			PlaceCircles(Mathf.Cos (Mathf.PI/3f), Mathf.Sin(Mathf.PI/3));
@@ -90,12 +110,14 @@ public class NewSacredGenerator : MonoBehaviour
 				draw = false;
 			}
 		}
-		if (draw)
+		if (draw && currentCircle < circles.Length)
 		{
 			circles[currentCircle].transform.position = position;
 			circles[currentCircle].name = "Circle" + currentCircle;
 			currentCircle++;
 			drawnCirclePositions.Add(position);
+			circlesToSurround.Add (currentCircle);
+
 		}
 	}
 
