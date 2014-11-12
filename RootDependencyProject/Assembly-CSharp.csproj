@@ -50,12 +50,14 @@
      <Compile Include="Assets\3DShapeVisualizer\ShapeController.cs" />
      <Compile Include="Assets\3DShapeVisualizer\ShapeScrollerController.cs" />
      <Compile Include="Assets\3DShapeVisualizer\TimerController.cs" />
+     <Compile Include="Assets\Octahedron Sphere\OctahedronSphereCreator.cs" />
      <Compile Include="Assets\Scripts\FlowerOfLifeGenerator.cs" />
      <Compile Include="Assets\Scripts\Functions.cs" />
      <Compile Include="Assets\Scripts\GUITest.cs" />
      <Compile Include="Assets\Scripts\NewSacredGenerator.cs" />
      <Compile Include="Assets\Scripts\SacredGenerator.cs" />
-     <Compile Include="Assets\ShapeNameController.cs" />
+     <Compile Include="Assets\Scripts\ShapeNameController.cs" />
+     <Compile Include="Assets\Scripts\SolidMeshCreator.cs" />
      <None Include="Assets\Fonts\fonts\Just_Another_Hand\LICENSE.txt" />
      <None Include="Assets\Fonts\fonts\Covered_By_Your_Grace\OFL.txt" />
      <None Include="Assets\Fonts\fonts\Rock_Salt\LICENSE.txt" />

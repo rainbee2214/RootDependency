@@ -46,7 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\TestingStuff\Octahedron Sphere\Editor\OctahedronSphereWizard.cs" />
+     <Compile Include="Assets\Editor\SolidWizard.cs" />
+     <None Include="Assets\Fonts\fonts\Just_Another_Hand\LICENSE.txt" />
+     <None Include="Assets\Fonts\fonts\Covered_By_Your_Grace\OFL.txt" />
+     <None Include="Assets\Fonts\fonts\Rock_Salt\LICENSE.txt" />
+     <None Include="Assets\Fonts\fonts\Satisfy\LICENSE.txt" />
+     <None Include="Assets\Fonts\fonts\Permanent_Marker\LICENSE.txt" />
+     <None Include="Assets\Fonts\fonts\Gochi_Hand\OFL.txt" />
+     <None Include="Assets\Fonts\fonts\Walter_Turncoat\LICENSE.txt" />
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
