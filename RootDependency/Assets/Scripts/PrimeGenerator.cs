@@ -13,7 +13,7 @@ public class PrimeGenerator : MonoBehaviour
 
     int direction = 1;
 
-    int negation = -1;
+    static int negation = -1;
 
     void Awake()
     {
@@ -26,58 +26,49 @@ public class PrimeGenerator : MonoBehaviour
             numbers[i].name = ""+i;
             numbers[i].transform.parent = transform;
         }
+
         //Place quads in position to create spiral
-        Vector2 position = Vector2.zero;
-        int k = 0;
-        foreach (GameObject number in numbers)
-        {
-            //Determine movement amount based on i
-            position += GetMovement(count);
-            number.transform.position = position;
-            k++;
-        }
+        GetMovement();
     }
 
-    Vector2 GetMovement(int i)
+
+    void GetMovement()
     {
-        Debug.Log("Getting movement! " + i);
-        Vector2 m = Vector2.right;
-
-        if (i >= lowerBound && i < upperBound)
-        {
-            int halfBound = numberOfElements / 2;
-            for (int k = 0; k < numberOfElements; k++)
-            {
-                //First half of elements move in x, second half, move in y
-                if (k <= halfBound)
-                {
-                    m = Vector2.right * direction;
-                }
-                else
-                {
-                    m = Vector2.up * direction;
-                }
-            }
-            //Find whether its positive or negative
-            //Find out how many iterations we need
-
-            count++;
-        }
-        else if (i == upperBound) Increment(i);
-
-        return m;
-    }
-
-    void Increment(int i)
-    {
-        Debug.Log("Increment! " + i);
-        //Increments lowerBound, upperBound
-        lowerBound = upperBound;
-        upperBound += count * 2;
-        count++;
+        count = 1;
+        direction = 1;
         numberOfElements = count * 2;
-        direction = (count % 2 == 0) ? direction * negation : direction;
+        lowerBound = 0;
+        upperBound = 2;
+
+        Vector2 position = Vector2.zero;
+        Vector2 movement = Vector2.zero;
+
+        for (int i = 0; i < numbers.Length; i++)
+        {
+            if (i == upperBound)
+            {
+                lowerBound = upperBound;
+                upperBound += numberOfElements;
+                count++;
+                numberOfElements = count * 2;
+                direction *= negation;
+            }
+            if (InBetween(i, lowerBound, upperBound))
+            {
+                //For movement along x
+                movement = Vector2.right * direction;
+
+                //For movement along y;
+                //movement = Vector.up * direction;
+            }
+            position += movement;
+            numbers[i].transform.position = position;
+        }
     }
 
+    bool InBetween(int target, int lessThan, int greaterthan)
+    {
+        return (target >= lessThan && target < greaterthan);
+    }
    
 }
