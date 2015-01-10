@@ -1,21 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PrimeGenerator : MonoBehaviour
 {
     public Color[] colors;
     public int currentColor = 0;
+    [Range(10, 10000)]
     public int upperBoundNumbers = 10;
     GameObject[] numbers;
 
     int lowerBound = 0;
     int upperBound = 2;
     int count = 1;
-    int numberOfElements;
 
     int direction = 1;
-
-    static int negation = -1;
 
     void Awake()
     {
@@ -24,7 +23,6 @@ public class PrimeGenerator : MonoBehaviour
             colors = new Color[1];
             colors[0] = Color.white;
         }
-        numberOfElements = count * 2;
         numbers = new GameObject[upperBoundNumbers];
         GameObject numberPrefab = Resources.Load("Prefabs/Number", typeof(GameObject)) as GameObject;
         for (int i = 0; i < upperBoundNumbers; i++)
@@ -35,15 +33,14 @@ public class PrimeGenerator : MonoBehaviour
         }
 
         //Place quads in position to create spiral
-        GetMovement();
+        GetSpiral();
     }
 
 
-    void GetMovement()
+    void GetSpiral()
     {
         count = 1;
         direction = 1;
-        numberOfElements = count * 2;
         lowerBound = 0;
         upperBound = 2;
 
@@ -52,51 +49,41 @@ public class PrimeGenerator : MonoBehaviour
         int middle = lowerBound + ((upperBound - lowerBound) / 2);
         for (int i = 0; i < numbers.Length; i++)
         {
-            //if (i==10)
-            //{
-            //    Debug.Log("------------------------------------------------------");
-            //}
-            //if (i == 0)
-            //{
-            //    movement = Vector2.right;
-            //    position += movement;
-            //    numbers[i].transform.position = position;
-            //    numbers[i].renderer.material.color = colors[currentColor+1];
-            //}
-            //else if (i==1)
-            //{
-            //    movement = Vector2.up;
-            //    position += movement;
-            //    numbers[i].transform.position = position;
-            //    count++;
-            //}
-            //else
+           
+            middle = lowerBound + ((upperBound - lowerBound) / 2);
+            if (i == upperBound)
             {
+                lowerBound = upperBound;
+                count++;
+                upperBound = upperBound + (count*2);
+                direction *= -1;
                 middle = lowerBound + ((upperBound - lowerBound) / 2);
-                if (i == upperBound)
-                {
-                    int temp = numberOfElements;
-                    lowerBound = upperBound;
-                    count++;
-                    upperBound = upperBound + (count*2);
-                    numberOfElements += 2;
-                    direction *= -1;
-                    middle = lowerBound + ((upperBound - lowerBound) / 2);
-                }
-                if (InBetween(i, lowerBound, upperBound))
-                {
-                    if (i >= middle) movement = Vector2.up * direction;
-                    else movement = Vector2.right * direction;
-                }
-
-                position += movement;
-                numbers[i].transform.position = position;
-
-                if (i % 2 == 0) numbers[i].renderer.material.color = colors[currentColor+1];
-                else numbers[i].renderer.material.color = colors[currentColor];
-
             }
-            Debug.Log("i: "+i+" Count: "+count+" Direction: "+direction+" LowerBound: "+lowerBound+" UpperBound: "+upperBound+" NumberOfElements: "+numberOfElements+" Middle: "+middle+"");
+            if (InBetween(i, lowerBound, upperBound))
+            {
+                if (i >= middle) movement = Vector2.up * direction;
+                else movement = Vector2.right * direction;
+            }
+
+            position += movement;
+            numbers[i].transform.position = position;
+
+
+            //if (i % 2 == 0) numbers[i].renderer.material.color = colors[currentColor+1];
+            //else numbers[i].renderer.material.color = colors[currentColor];
+
+            numbers[i].renderer.material.color = colors[currentColor];
+            //if it's a prime, turn it black
+            bool isPrime = true;
+            for (int k = 2; k < Mathf.Sqrt(i+2); k++)
+            {
+                if (i % k == 0)
+                {
+                    isPrime = false;
+                }
+            }
+
+            if(isPrime) numbers[i].renderer.material.color = colors[currentColor+1];
         }
     }
 
