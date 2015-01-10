@@ -15,9 +15,12 @@ public class PrimeGenerator : MonoBehaviour
     int count = 1;
 
     int direction = 1;
+    int[] primes;
 
     void Awake()
     {
+        FindPrimesInRange();
+
         if (colors == null)
         {
             colors = new Color[1];
@@ -73,17 +76,19 @@ public class PrimeGenerator : MonoBehaviour
             //else numbers[i].renderer.material.color = colors[currentColor];
 
             numbers[i].renderer.material.color = colors[currentColor];
-            //if it's a prime, turn it black
-            bool isPrime = true;
-            for (int k = 2; k < Mathf.Sqrt(i+2); k++)
+            //if ((i + 2) % 2 == 0) numbers[i].renderer.material.color = colors[currentColor + 4];
+            //if ((i + 2) % 3 == 0) numbers[i].renderer.material.color = colors[currentColor + 4];
+            //if ((i + 2) % 5 == 0) numbers[i].renderer.material.color = colors[currentColor + 4];
+
+            //for the current list of primes change colors accordintly
+            foreach (int n in primes)
             {
-                if (i % k == 0)
+                if ((i + 2) % n == 0)
                 {
-                    isPrime = false;
+                    numbers[i].renderer.material.color = colors[currentColor + 4];
+                    break;
                 }
             }
-
-            if(isPrime) numbers[i].renderer.material.color = colors[currentColor+1];
         }
     }
 
@@ -91,5 +96,14 @@ public class PrimeGenerator : MonoBehaviour
     {
         return (target >= lessThan && target < greaterthan);
     }
-   
+
+    void FindPrimesInRange()
+    {
+        primes = new int[4];
+        primes[0] = 2;
+        primes[1] = 3;
+        primes[2] = 5;
+        primes[3] = 7;
+    }
+
 }
