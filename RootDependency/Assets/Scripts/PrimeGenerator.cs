@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PrimeGenerator : MonoBehaviour
 {
+    public Color[] colors;
+    public int currentColor = 0;
     public int upperBoundNumbers = 10;
     GameObject[] numbers;
 
@@ -17,13 +19,18 @@ public class PrimeGenerator : MonoBehaviour
 
     void Awake()
     {
+        if (colors == null)
+        {
+            colors = new Color[1];
+            colors[0] = Color.white;
+        }
         numberOfElements = count * 2;
         numbers = new GameObject[upperBoundNumbers];
         GameObject numberPrefab = Resources.Load("Prefabs/Number", typeof(GameObject)) as GameObject;
         for (int i = 0; i < upperBoundNumbers; i++)
         {
             numbers[i] = Instantiate(numberPrefab) as GameObject;
-            numbers[i].name = ""+i;
+            numbers[i].name = ""+(i)+":"+(i+2);
             numbers[i].transform.parent = transform;
         }
 
@@ -35,34 +42,61 @@ public class PrimeGenerator : MonoBehaviour
     void GetMovement()
     {
         count = 1;
-        direction = 1;
+        direction = -1;
         numberOfElements = count * 2;
-        lowerBound = 0;
-        upperBound = 2;
+        lowerBound = 2;
+        upperBound = 6;
 
         Vector2 position = Vector2.zero;
         Vector2 movement = Vector2.zero;
-
+        int middle = lowerBound + ((upperBound - lowerBound) / 2);
         for (int i = 0; i < numbers.Length; i++)
         {
-            if (i == upperBound)
+            if (i==10)
             {
-                lowerBound = upperBound;
-                upperBound += numberOfElements;
+                Debug.Log("------------------------------------------------------");
+            }
+            Debug.Log("i: "+i+" Count: "+count+" Direction: "+direction+" LowerBound: "+lowerBound+" UpperBound: "+upperBound+" NumberOfElements: "+numberOfElements+" Middle: "+middle+"");
+            if (i == 0)
+            {
+                movement = Vector2.right;
+                position += movement;
+                numbers[i].transform.position = position;
+                numbers[i].renderer.material.color = colors[currentColor+1];
+            }
+            else if (i==1)
+            {
+                movement = Vector2.up;
+                position += movement;
+                numbers[i].transform.position = position;
                 count++;
-                numberOfElements = count * 2;
-                direction *= negation;
             }
-            if (InBetween(i, lowerBound, upperBound))
+            else
             {
-                //For movement along x
-                movement = Vector2.right * direction;
+                middle = lowerBound + ((upperBound - lowerBound) / 2);
+                if (i > upperBound)
+                {
+                    int temp = numberOfElements;
+                    lowerBound = upperBound;
+                    upperBound = upperBound + numberOfElements + temp;
+                    count++;
+                    numberOfElements += 2;
+                    direction *= -1;
+                    middle = lowerBound + ((upperBound - lowerBound) / 2);
+                }
+                if (InBetween(i, lowerBound, upperBound))
+                {
+                    if (i >= middle) movement = Vector2.up * direction;
+                    else movement = Vector2.right * direction;
+                }
 
-                //For movement along y;
-                //movement = Vector.up * direction;
+                position += movement;
+                numbers[i].transform.position = position;
+
+                if (i % 2 == 0) numbers[i].renderer.material.color = colors[currentColor+1];
+                else numbers[i].renderer.material.color = colors[currentColor];
+
             }
-            position += movement;
-            numbers[i].transform.position = position;
         }
     }
 
