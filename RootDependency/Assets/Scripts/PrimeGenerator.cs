@@ -9,12 +9,15 @@ public class PrimeGenerator : MonoBehaviour
     int lowerBound = 0;
     int upperBound = 2;
     int count = 1;
+    int numberOfElements;
+
     int direction = 1;
 
     int negation = -1;
 
     void Awake()
     {
+        numberOfElements = count * 2;
         numbers = new GameObject[upperBoundNumbers];
         GameObject numberPrefab = Resources.Load("Prefabs/Number", typeof(GameObject)) as GameObject;
         for (int i = 0; i < upperBoundNumbers; i++)
@@ -42,13 +45,25 @@ public class PrimeGenerator : MonoBehaviour
 
         if (i >= lowerBound && i < upperBound)
         {
-            if (i == upperBound) Increment(i);
-
+            int halfBound = numberOfElements / 2;
+            for (int k = 0; k < numberOfElements; k++)
+            {
+                //First half of elements move in x, second half, move in y
+                if (k <= halfBound)
+                {
+                    m = Vector2.right * direction;
+                }
+                else
+                {
+                    m = Vector2.up * direction;
+                }
+            }
             //Find whether its positive or negative
             //Find out how many iterations we need
 
             count++;
         }
+        else if (i == upperBound) Increment(i);
 
         return m;
     }
@@ -59,5 +74,10 @@ public class PrimeGenerator : MonoBehaviour
         //Increments lowerBound, upperBound
         lowerBound = upperBound;
         upperBound += count * 2;
+        count++;
+        numberOfElements = count * 2;
+        direction = (count % 2 == 0) ? direction * negation : direction;
     }
+
+   
 }
