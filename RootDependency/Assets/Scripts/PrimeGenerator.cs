@@ -42,44 +42,43 @@ public class PrimeGenerator : MonoBehaviour
     void GetMovement()
     {
         count = 1;
-        direction = -1;
+        direction = 1;
         numberOfElements = count * 2;
-        lowerBound = 2;
-        upperBound = 6;
+        lowerBound = 0;
+        upperBound = 2;
 
         Vector2 position = Vector2.zero;
         Vector2 movement = Vector2.zero;
         int middle = lowerBound + ((upperBound - lowerBound) / 2);
         for (int i = 0; i < numbers.Length; i++)
         {
-            if (i==10)
-            {
-                Debug.Log("------------------------------------------------------");
-            }
-            Debug.Log("i: "+i+" Count: "+count+" Direction: "+direction+" LowerBound: "+lowerBound+" UpperBound: "+upperBound+" NumberOfElements: "+numberOfElements+" Middle: "+middle+"");
-            if (i == 0)
-            {
-                movement = Vector2.right;
-                position += movement;
-                numbers[i].transform.position = position;
-                numbers[i].renderer.material.color = colors[currentColor+1];
-            }
-            else if (i==1)
-            {
-                movement = Vector2.up;
-                position += movement;
-                numbers[i].transform.position = position;
-                count++;
-            }
-            else
+            //if (i==10)
+            //{
+            //    Debug.Log("------------------------------------------------------");
+            //}
+            //if (i == 0)
+            //{
+            //    movement = Vector2.right;
+            //    position += movement;
+            //    numbers[i].transform.position = position;
+            //    numbers[i].renderer.material.color = colors[currentColor+1];
+            //}
+            //else if (i==1)
+            //{
+            //    movement = Vector2.up;
+            //    position += movement;
+            //    numbers[i].transform.position = position;
+            //    count++;
+            //}
+            //else
             {
                 middle = lowerBound + ((upperBound - lowerBound) / 2);
-                if (i > upperBound)
+                if (i == upperBound)
                 {
                     int temp = numberOfElements;
                     lowerBound = upperBound;
-                    upperBound = upperBound + numberOfElements + temp;
                     count++;
+                    upperBound = upperBound + (count*2);
                     numberOfElements += 2;
                     direction *= -1;
                     middle = lowerBound + ((upperBound - lowerBound) / 2);
@@ -97,6 +96,7 @@ public class PrimeGenerator : MonoBehaviour
                 else numbers[i].renderer.material.color = colors[currentColor];
 
             }
+            Debug.Log("i: "+i+" Count: "+count+" Direction: "+direction+" LowerBound: "+lowerBound+" UpperBound: "+upperBound+" NumberOfElements: "+numberOfElements+" Middle: "+middle+"");
         }
     }
 
