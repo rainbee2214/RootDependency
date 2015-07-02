@@ -75,7 +75,7 @@ public class PrimeGenerator : MonoBehaviour
             //if (i % 2 == 0) numbers[i].renderer.material.color = colors[currentColor+1];
             //else numbers[i].renderer.material.color = colors[currentColor];
 
-            numbers[i].renderer.material.color = colors[currentColor];
+            numbers[i].GetComponent<Renderer>().material.color = colors[currentColor];
             //if ((i + 2) % 2 == 0) numbers[i].renderer.material.color = colors[currentColor + 4];
             //if ((i + 2) % 3 == 0) numbers[i].renderer.material.color = colors[currentColor + 4];
             //if ((i + 2) % 5 == 0) numbers[i].renderer.material.color = colors[currentColor + 4];
@@ -85,7 +85,7 @@ public class PrimeGenerator : MonoBehaviour
             {
                 if ((i + 2) % n == 0)
                 {
-                    numbers[i].renderer.material.color = colors[currentColor + 4];
+                    numbers[i].GetComponent<Renderer>().material.color = colors[currentColor + 4];
                     break;
                 }
             }
